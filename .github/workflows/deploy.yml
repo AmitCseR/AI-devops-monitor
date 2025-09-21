@@ -1,0 +1,45 @@
+# Yeh file hamare app ko Hugging Face Spaces par deploy karegi
+name: Deploy Gradio App to Hugging Face Spaces
+
+# Kab yeh kaam chalega? Jab bhi 'main' branch par koi naya code push hoga
+on:
+  push:
+    branches:
+      - main # Yahan 'main' branch ka naam likhna hai
+
+# Kaam karne ke steps
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Hum Linux server par deploy karenge
+
+    steps:
+    - name: Checkout code # Code ko GitHub se download karo
+      uses: actions/checkout@v2
+
+    - name: Install Python # Python install karo
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9' # Python ka version
+
+    - name: Install dependencies # Zaroori libraries install karo
+      run: |
+        pip install gradio transformers torch
+
+    - name: Login to Hugging Face # Hugging Face me login karo (secret use karke)
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }} # Yahan hamara secret token use hoga
+      run: |
+        pip install huggingface_hub
+        huggingface-cli login --token $HF_TOKEN
+
+    - name: Create and Push to Hugging Face Space # Hugging Face Space banao aur code push karo
+      run: |
+        mkdir -p .huggingface/
+        echo '{"models": ["image-classification"]}' > .huggingface/README.md # Readme file banate hain
+        cp app.py .huggingface/ # Hamari app.py file copy karo
+        cd .huggingface/
+        git init
+        git remote add origin https://huggingface.co/spaces/${{ github.repository }}
+        git add .
+        git commit -m "Initial Gradio app deploy"
+        git push --force origin main
