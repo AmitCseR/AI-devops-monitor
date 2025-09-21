@@ -34,16 +34,15 @@ jobs:
 
     - name: Create and Push to Hugging Face Space # Hugging Face Space banao aur code push karo
       run: |
-        # Yeh 2 nayi lines add ki hain humne
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
         
         mkdir -p .huggingface/
-        echo '{"models": ["image-classification"]}' > .huggingface/README.md # Readme file banate hain
-        cp app.py .huggingface/ # Hamari app.py file copy karo
+        echo '{"models": ["image-classification"]}' > .huggingface/README.md
+        cp app.py .huggingface/
         cd .huggingface/
         git init
         git remote add origin https://huggingface.co/spaces/${{ github.repository }}
         git add .
         git commit -m "Initial Gradio app deploy"
-        git push --force origin main
+        git push --force origin master
