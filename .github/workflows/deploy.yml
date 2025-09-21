@@ -5,7 +5,7 @@ name: Deploy Gradio App to Hugging Face Spaces
 on:
   push:
     branches:
-      - main # Yahan 'main' branch ka naam likhna hai
+      - main
 
 # Kaam karne ke steps
 jobs:
@@ -34,6 +34,10 @@ jobs:
 
     - name: Create and Push to Hugging Face Space # Hugging Face Space banao aur code push karo
       run: |
+        # Yeh 2 nayi lines add ki hain humne
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        
         mkdir -p .huggingface/
         echo '{"models": ["image-classification"]}' > .huggingface/README.md # Readme file banate hain
         cp app.py .huggingface/ # Hamari app.py file copy karo
