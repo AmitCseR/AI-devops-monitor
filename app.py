@@ -18,7 +18,7 @@ def classify_image(input_image):
 iface = gr.Interface(fn=classify_image, 
                      inputs=gr.Image(type="pil"), 
                      outputs="label",
-                     title="Mera Pehla AI Image Classifier",
+                     title="Amit's Imagination Engine",",
                      description="Koi bhi image upload karke dekho, AI batayega ki usme kya hai.")
 
 # App ko chalao
