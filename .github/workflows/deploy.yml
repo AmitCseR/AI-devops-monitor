@@ -10,8 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Yeh hai zaroori badlav: Hum poora code download kar rahe hain
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Create and Push to Hugging Face Space
       run: |
@@ -19,7 +22,7 @@ jobs:
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-        # Hum yahan 'origin' ka address badal rahe hain, naya nahi bana rahe
+        # Hum yahan 'origin' ka address badal rahe hain
         git remote set-url origin https://AmitCseR:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/AmitCseR/My-First-AI-App
         
         # Is command se code hamesha 'main' branch me hi jayega
