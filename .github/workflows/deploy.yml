@@ -33,8 +33,8 @@ jobs:
         cp app.py .huggingface/
         cd .huggingface/
         git init
-        # Humne neeche waali line ko badla hai taaki password seedha address me chala jaye
-        git remote add origin https://${{ github.repository_owner }}:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/${{ github.repository }}
+        # Humne neeche waali line me naya Space ka address daal diya hai
+        git remote add origin https://AmitCseR:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/AmitCseR/My-First-AI-App
         git add .
         git commit -m "Initial Gradio app deploy"
         git push --force origin master
