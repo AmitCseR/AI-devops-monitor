@@ -1,4 +1,3 @@
-# Yeh file hamare app ko Hugging Face Spaces par deploy karegi
 name: Deploy Gradio App to Hugging Face Spaces
 
 on:
@@ -14,27 +13,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-
-    - name: Install dependencies
-      run: |
-        pip install gradio transformers torch
-
     - name: Create and Push to Hugging Face Space
       run: |
+        # Computer ko naam aur email batate hain
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-        
-        mkdir -p .huggingface/
-        echo '{"models": ["image-classification"]}' > .huggingface/README.md
-        cp app.py .huggingface/
-        cd .huggingface/
+
+        # Hum yahan se seedha code bhejenge, koi extra folder nahi banayenge
         git init
-        # Humne neeche waali line me naya Space ka address daal diya hai
         git remote add origin https://AmitCseR:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/AmitCseR/My-First-AI-App
+        
+        # Sab kuch (app.py, requirements.txt, etc.) add karte hain
         git add .
-        git commit -m "Initial Gradio app deploy"
-        git push --force origin master
+        git commit -m "Deploying final version of the app"
+
+        # Is command se code hamesha 'main' branch me hi jayega
+        git push --force origin HEAD:maingit
