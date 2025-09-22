@@ -19,13 +19,8 @@ jobs:
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-        # Hum yahan se seedha code bhejenge, koi extra folder nahi banayenge
-        git init
-        git remote add origin https://AmitCseR:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/AmitCseR/My-First-AI-App
+        # Hum yahan 'origin' ka address badal rahe hain, naya nahi bana rahe
+        git remote set-url origin https://AmitCseR:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/AmitCseR/My-First-AI-App
         
-        # Sab kuch (app.py, requirements.txt, etc.) add karte hain
-        git add .
-        git commit -m "Deploying final version of the app"
-
         # Is command se code hamesha 'main' branch me hi jayega
-        git push --force origin HEAD:maingit
+        git push --force origin HEAD:main
