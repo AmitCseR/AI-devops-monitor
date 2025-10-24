@@ -14,9 +14,8 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. Hugging Face ki 'Special Delivery Service' se code bhej do
-      # YAHAN PAR GALTI THI (vff ko v0 kar diya hai)
       - name: Push to Hugging Face Hub
-        uses: huggingface/hub-action@v0
+        uses: huggingface/push-to-hub@v0
         with:
           # Hamara secret password
           hf_token: ${{ secrets.HF_TOKEN }}
