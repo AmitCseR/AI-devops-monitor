@@ -1,4 +1,4 @@
-# Yeh ek naya badlav hainame: Deploy Gradio App to Hugging Face Spaces
+name: Deploy Gradio App to Hugging Face Spaces
 
 on:
   push:
@@ -9,13 +9,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. GitHub se saara code download karo (app.py aur README.md dono)
+      # 1. GitHub se saara code download karo
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # 2. Hugging Face ki 'Special Delivery Service' se code bhej do
+      # YAHAN PAR GALTI THI (naam theek kar diya hai)
       - name: Push to Hugging Face Hub
-        uses: huggingface/push-to-hub@v0
+        uses: huggingface/hub-action@v0
         with:
           # Hamara secret password
           hf_token: ${{ secrets.HF_TOKEN }}
