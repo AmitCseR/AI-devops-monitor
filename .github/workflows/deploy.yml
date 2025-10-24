@@ -1,4 +1,4 @@
-name: Deploy Gradio App to Hugging Face Spaces
+# Yeh ek naya badlav hainame: Deploy Gradio App to Hugging Face Spaces
 
 on:
   push:
