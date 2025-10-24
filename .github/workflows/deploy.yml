@@ -14,8 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. Hugging Face ki 'Special Delivery Service' se code bhej do
+      # YEH HAI ASLI AUR SAHI NAAM
       - name: Push to Hugging Face Hub
-        uses: huggingface/push-to-hub@v0
+        uses: SamPault/action-push-to-huggingface-hub@v3.0
         with:
           # Hamara secret password
           hf_token: ${{ secrets.HF_TOKEN }}
