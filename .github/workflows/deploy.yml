@@ -1,0 +1,28 @@
+name: Deploy Gradio App to Hugging Face Spaces
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. GitHub se saara code download karo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Hugging Face ki 'Special Delivery Service' se code bhej do
+      # YEH HAI NAYI AUR SABSE TRUSTED SERVICE
+      - name: Push to Hugging Face Hub
+        uses: peaceiris/actions-huggingface-hub@v1.2.0
+        with:
+          # Hamara secret password
+          hf_token: ${{ secrets.HF_TOKEN }}
+          
+          # Hamare plot ka address (username/space_name)
+          repo_id: "AmitCseR/My-First-AI-App"
+          
+          # Batao ki yeh ek 'Space' hai (model nahi)
+          repo_type: space
