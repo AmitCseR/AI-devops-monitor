@@ -1,13 +1,23 @@
-
 import gradio as gr
 from transformers import pipeline
-classifier = pipeline("image-classification")
-def classify_image(input_image):
-    predictions = classifier(input_image)
-    return {p["label"]: p["score"] for p in predictions}
-iface = gr.Interface(fn=classify_image, 
-                     inputs=gr.Image(type="pil"), 
-                     outputs="label",
-                     title="Amit's Imagination Engine",
-                     description="Koi bhi image upload karke dekho, AI batayega ki usme kya hai.")
+import torch
+
+# Naya, powerful model download karo jo photo banata hai
+# Note: Pehli baar chalne me thoda time lega
+text_to_image = pipeline("text-to-image", model="stabilityai/stable-diffusion-2-1-base", torch_dtype=torch.float16)
+
+def generate_image(text):
+    # Model ko bolo text se image banaye
+    print("Generating image for:", text)
+    result = text_to_image(text).images[0]
+    print("Image generated!")
+    return result
+
+# Naya chehra (UI) banate hain
+iface = gr.Interface(fn=generate_image,
+                     inputs="text",
+                     outputs="image",
+                     title="Amit's Imagination Engine", # Ya jo bhi title aapne rakha tha
+                     description="Aap kuch bhi likho (jaise 'A horse riding an astronaut on Mars'), aur AI uski photo banayega.")
+
 iface.launch()
